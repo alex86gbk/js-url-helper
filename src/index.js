@@ -255,10 +255,10 @@
         obj.path = window.location.pathname;
       }
       if (!obj.search) {
-        obj.search = window.location.search;
+        obj.search = '';
       }
       if (!obj.hash) {
-        obj.hash = window.location.hash;
+        obj.hash = '';
       }
 
       window.location.href = obj.path + obj.search + obj.hash;
@@ -292,10 +292,10 @@
         obj.path = window.location.pathname;
       }
       if (!obj.search) {
-        obj.search = window.location.search;
+        obj.search = '';
       }
       if (!obj.hash) {
-        obj.hash = window.location.hash;
+        obj.hash = '';
       }
 
       return obj.path + obj.search + obj.hash;

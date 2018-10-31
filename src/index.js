@@ -1,15 +1,24 @@
-;(function (name, definition) {
-  let hasDefine = typeof define === 'function',
-    hasExports = typeof module !== 'undefined' && module.exports;
+(function (name, definition) {
+  let hasDefine = typeof define === 'function';
+  let hasExports = typeof module !== 'undefined' && module.exports;
+
   if (hasDefine) {
     define(definition);
   } else if (hasExports) {
     module.exports = definition();
   } else {
-    this[name] = definition();
+    if (typeof window !== 'undefined') {
+      window[name] = definition();
+    } else {
+      try {
+        this[name] = definition();
+      } catch (err) {
+        throw err;
+      }
+    }
   }
 })('UrlHelper', function () {
-  "use strict";
+  'use strict';
 
   /**
    * Url辅助类

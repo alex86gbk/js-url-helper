@@ -1,15 +1,24 @@
-;(function (name, definition) {
-  let hasDefine = typeof define === 'function',
-    hasExports = typeof module !== 'undefined' && module.exports;
+(function (name, definition) {
+  let hasDefine = typeof define === 'function';
+  let hasExports = typeof module !== 'undefined' && module.exports;
+
   if (hasDefine) {
     define(definition);
   } else if (hasExports) {
     module.exports = definition();
   } else {
-    this[name] = definition();
+    if (typeof window !== 'undefined') {
+      window[name] = definition();
+    } else {
+      try {
+        this[name] = definition();
+      } catch (err) {
+        throw err;
+      }
+    }
   }
 })('UrlHelper', function () {
-  "use strict";
+  'use strict';
 
   /**
    * Url辅助类
@@ -255,10 +264,10 @@
         obj.path = window.location.pathname;
       }
       if (!obj.search) {
-        obj.search = window.location.search;
+        obj.search = '';
       }
       if (!obj.hash) {
-        obj.hash = window.location.hash;
+        obj.hash = '';
       }
 
       window.location.href = obj.path + obj.search + obj.hash;
@@ -292,10 +301,10 @@
         obj.path = window.location.pathname;
       }
       if (!obj.search) {
-        obj.search = window.location.search;
+        obj.search = '';
       }
       if (!obj.hash) {
-        obj.hash = window.location.hash;
+        obj.hash = '';
       }
 
       return obj.path + obj.search + obj.hash;

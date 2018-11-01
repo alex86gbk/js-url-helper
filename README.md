@@ -14,6 +14,7 @@ Js-url-helper 是一个浏览器 `URL` 辅助工具。
 
 # download
 ## 下载
+（仅下载至本地后使用，不能直接作为 CDN 资源引用）
 
 [unzipped](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/src/index.js) [(~zipped)](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/dist/js-url-helper.js)
 

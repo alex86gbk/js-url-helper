@@ -44,6 +44,7 @@ npm install --save js-url-helper
 * [设置 hash 参数](README.md#sethashparam)
 * [执行 URL 跳转](README.md#jump)
 * [生成 URL 链接](README.md#link)
+* [刷新页面](README.md#refresh)
 
 # UrlHelper
 
@@ -180,8 +181,8 @@ var hashParamString = urlHelper.setHashParam({
 urlHelper.jump({
   path: '/path/other',
   search: urlHelper.setSearchParam({
-    classId: 112345,
-    studentId: 22351223
+    classId: 1,
+    studentId: 2
   })
 });
 ```
@@ -207,12 +208,43 @@ urlHelper.jump({
 ```javascript
 var link = urlHelper.link({
   path: '/path/other',
-  search: urlHelper.setHashParam({
-    questionId: 112345
+  search: urlHelper.setSearchParam({
+    chapterId: 1
+  }),
+  hash: urlHelper.setHashParam({
+    questionId: 2
   })
 });
 
 document.getElementById('nextQuestion').href = link;
+```
+
+# refresh
+
+`refresh(url, param)`
+
+## 刷新页面到 url。此方式刷新的页面浏览器不会记录 history。
+
+### Arguments
+
+ - url **{String}** 刷新地址
+ - param **{String}** 刷新地址参数
+ 
+### Returns
+ 
+ - **无**
+
+### Example
+```javascript
+urlHelper.refresh({
+  path: '/path/other',
+  search: urlHelper.setSearchParam({
+    chapterId: 1
+  }),
+  hash: urlHelper.setHashParam({
+    questionId: 2
+  })
+});
 ```
 
 # 扩展阅读

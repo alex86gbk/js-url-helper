@@ -1,6 +1,6 @@
 {
   "name": "js-url-helper",
-  "version": "0.1.3",
+  "version": "0.1.4-beta",
   "description": "An JavaScript assistant for Browser URL",
   "main": "index.js",
   "scripts": {

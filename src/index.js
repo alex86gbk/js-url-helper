@@ -73,7 +73,7 @@
         match = matchReg.exec(params[i]);
 
         try {
-          param[match[1]] = match[2];
+          param[match[1]] = decodeURIComponent(match[2]);
         } catch (err) {
           alert('请检查URL参数');
         }
@@ -94,9 +94,9 @@
 
       for (let key in obj) {
         if (index === 0) {
-          string += key + '=' + (obj[key] || '');
+          string += key + '=' + (encodeURIComponent(obj[key]) || '');
         } else {
-          string += '&' + key + '=' + (obj[key] || '');
+          string += '&' + key + '=' + (encodeURIComponent(obj[key]) || '');
         }
         index++;
       }
@@ -238,10 +238,10 @@
 
     /**
      * 跳转到具体资源，参数为空则刷新当前页
-     * @param obj {Object}
-     * @param obj.path {String} 跳转路径
-     * @param obj.search {String} 跳转search参数
-     * @param obj.hash {String} 跳转hash参数
+     * @param param {Object}
+     * @param param.path {String} 跳转路径
+     * @param param.search {String} 跳转search参数
+     * @param param.hash {String} 跳转hash参数
      *
      * 例子：
      *
@@ -256,29 +256,29 @@
      *     })
      *   });
      */
-    this.jump = function (obj) {
-      if (!obj) {
-        obj = {};
+    this.jump = function (param) {
+      if (!param) {
+        param = {};
       }
-      if (!obj.path) {
-        obj.path = window.location.pathname;
+      if (!param.path) {
+        param.path = window.location.pathname;
       }
-      if (!obj.search) {
-        obj.search = '';
+      if (!param.search) {
+        param.search = '';
       }
-      if (!obj.hash) {
-        obj.hash = '';
+      if (!param.hash) {
+        param.hash = '';
       }
 
-      window.location.href = obj.path + obj.search + obj.hash;
+      window.location.href = param.path + param.search + param.hash;
     };
 
     /**
      * 链接到具体资源，参数为空为当前页
-     * @param obj {Object}
-     * @param obj.path {String} 跳转路径
-     * @param obj.search {Object} 跳转search参数
-     * @param obj.hash {Object} 跳转hash参数
+     * @param param {Object}
+     * @param param.path {String} 跳转路径
+     * @param param.search {Object} 跳转search参数
+     * @param param.hash {Object} 跳转hash参数
      * @return {String} 链接地址
      *
      * 例子：
@@ -293,21 +293,37 @@
      *
      *   document.getElementById('nextQuestion').href = link;
      */
-    this.link = function (obj) {
-      if (!obj) {
-        obj = {};
+    this.link = function (param) {
+      if (!param) {
+        param = {};
       }
-      if (!obj.path) {
-        obj.path = window.location.pathname;
+      if (!param.path) {
+        param.path = window.location.pathname;
       }
-      if (!obj.search) {
-        obj.search = '';
+      if (!param.search) {
+        param.search = '';
       }
-      if (!obj.hash) {
-        obj.hash = '';
+      if (!param.hash) {
+        param.hash = '';
       }
 
-      return obj.path + obj.search + obj.hash;
+      return param.path + param.search + param.hash;
+    };
+
+    /**
+     * 页面刷新
+     * @param param {Object}
+     * @param param.path {String} 刷新路径
+     * @param param.search {Object} 刷新search参数
+     * @param param.hash {Object} 刷新hash参数
+     */
+    this.refresh = function (param) {
+      const refreshNode = document.createElement("meta");
+      const params = (param.search ? param.search : '') + (param.hash ? param.hash : '');
+
+      document.getElementsByTagName("head")[0].appendChild(refreshNode);
+      refreshNode.setAttribute('http-equiv', 'refresh');
+      refreshNode.setAttribute('content', '0;URL=' + param.path + params);
     };
 
     _init();

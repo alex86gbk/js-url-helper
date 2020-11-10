@@ -2,28 +2,27 @@ var gulp = require('gulp'),
   uglify = require('gulp-uglify'),
   rename = require('gulp-rename'),
   babel = require('gulp-babel'),
-  gutil = require('gulp-util'),
-  gulpSequence = require('gulp-sequence'),
+  gUtil = require('gulp-util'),
   del = require('del');
 
-gulp.task('init', function () {
+gulp.task('init', gulp.series(function () {
   return del('./dist');
-});
+}));
 
-gulp.task('convert', function () {
+gulp.task('convert', gulp.series(function () {
   return gulp.src('./src/*.js')
     .pipe(babel({
-      presets: ['es2015']
+      plugins: ['transform-es2015-modules-umd'],
     }))
-    .pipe(uglify().on('error', function(err){
-      gutil.log(err);
+    .pipe(uglify().on('error', function (err) {
+      gUtil.log(err);
       this.emit('end');
     }))
     .pipe(gulp.dest('./dist'));
-});
+}));
 
-gulp.task('public', function () {
-  return gulp.src('./dist/index.js')
+gulp.task('public', gulp.series(function () {
+  return gulp.src('./dist/UrlHelper.js')
     .pipe(rename(function(path){
       path.basename ='js-url-helper';
       path.extname = ".js";
@@ -34,10 +33,10 @@ gulp.task('public', function () {
       path.extname = ".js";
     }))
     .pipe(gulp.dest('./'));
-});
+}));
 
-gulp.task('clean', function () {
-  return del('./dist/index.js');
-});
+gulp.task('clean', gulp.series(function () {
+  return del(['./dist/UrlHelper.js', './src/UrlHelper.js']);
+}));
 
-gulp.task('dist', gulpSequence('init', 'convert', 'public', 'clean'));
+gulp.task('dist', gulp.series('init', 'convert', 'public', 'clean'));

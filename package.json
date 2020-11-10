@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp dist"
+    "ts": "tsc ./src/UrlHelper.ts",
+    "build": "npm run ts && gulp dist"
   },
   "repository": {
     "type": "git",
@@ -19,14 +20,14 @@
   "license": "ISC",
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-preset-es2015": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
     "del": "^2.2.2",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-babel": "^7.0.1",
     "gulp-rename": "^1.3.0",
-    "gulp-sequence": "^0.4.6",
     "gulp-uglify": "^3.0.1",
-    "gulp-util": "^3.0.8"
+    "gulp-util": "^3.0.8",
+    "typescript": "^4.0.5"
   },
   "dependencies": {}
 }

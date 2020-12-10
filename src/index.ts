@@ -108,7 +108,7 @@ export default class UrlHelper {
    *   var searchParam = urlHelper.getSearchParam();
    *   searchParam;   // {query1: 'test', silly: 'willy'}
    */
-  getSearchParam(location: Location | string): object {
+  getSearchParam(location?: Location | string): object {
     let params: Array<string>;
 
     if (!location) {
@@ -144,7 +144,7 @@ export default class UrlHelper {
    *   var hashParam = urlHelper.getHashParam();
    *   hashParam;   // {test: 'hash', chucky: 'cheese'}
    */
-  getHashParam(location: Location | string): object {
+  getHashParam(location?: Location | string): object {
     let params: Array<string>;
 
     if (!location) {

@@ -1,4 +1,8 @@
-import { UrlParam } from '../types/interface';
+export interface UrlHelperParam {
+  path?: string;
+  search?: object | string;
+  hash?: object | string;
+}
 
 /**
  * Url辅助类
@@ -6,7 +10,7 @@ import { UrlParam } from '../types/interface';
  * @author alex86gbk
  * @class
  */
-export class UrlHelper {  
+export default class UrlHelper {  
   /**
    * @template
    * @private
@@ -45,8 +49,8 @@ export class UrlHelper {
      * @return {Object}
      * @private
      */
-  static _getParam(params: Array<string>): object {
-    let match: Array<string> | null;
+  static _getParam(params: string[]): object {
+    let match: string[] | null;
     let param: object = {};
     const matchReg: RegExp = /([\s\S]*)=([\s\S]*)/;
 
@@ -209,7 +213,7 @@ export class UrlHelper {
    *   // '#test=hash&chucky=cheese'
    */
   setHashParam(param: object): string {
-    let paramString;
+    let paramString: string;
 
     if (param && typeof param !== 'object') {
       paramString = '#';
@@ -241,10 +245,19 @@ export class UrlHelper {
    *         questionId: 112345
    *     })
    *   });
+   * 
+   *   或
+   * 
+   *   var link = urlHelper.link({
+   *     path: '/path/other',
+   *     hash: {
+   *         questionId: 112345
+   *     }
+   *   });
    *
    *   document.getElementById('nextQuestion').href = link;
    */
-  link(param: UrlParam): string {
+  link(param: UrlHelperParam): string {
     if (!param) {
       param = {};
     }
@@ -288,8 +301,18 @@ export class UrlHelper {
    *         studentId: 22351223
    *     })
    *   });
+   * 
+   *   或
+   * 
+   *   urlHelper.jump({
+   *     path: '/path/other',
+   *     search: {
+   *         classId: 112345,
+   *         studentId: 22351223
+   *     }
+   *   });
    */
-  jump(param: UrlParam): void {
+  jump(param: UrlHelperParam): void {
     if (!param) {
       param = {};
     }

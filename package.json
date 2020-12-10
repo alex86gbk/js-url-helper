@@ -1,12 +1,12 @@
 {
   "name": "js-url-helper",
-  "version": "0.1.4-beta",
+  "version": "0.2.0",
   "description": "An JavaScript assistant for Browser URL",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts": "tsc ./src/UrlHelper.ts",
-    "build": "npm run ts && gulp dist"
+    "dist": "tsc ./src/index.ts --module ES6 --declaration --removeComments --outDir ./",
+    "build": "npm run dist && gulp dist"
   },
   "repository": {
     "type": "git",
@@ -21,11 +21,13 @@
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-plugin-transform-es2015-modules-umd": "^6.24.1",
-    "del": "^2.2.2",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-babel": "^7.0.1",
     "gulp-rename": "^1.3.0",
+    "gulp-replace": "^1.0.0",
     "gulp-uglify": "^3.0.1",
+    "gulp-uglify-es": "^2.0.0",
     "gulp-util": "^3.0.8",
     "typescript": "^4.0.5"
   },

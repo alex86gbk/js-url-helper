@@ -2,7 +2,7 @@
 ## 介绍
 
 Js-url-helper 是一个浏览器 `URL` 辅助工具。
-通过 Js-url-helper 可以很方便的操作 `location` 对象。
+通过 Js-url-helper 可以很方便的操作 `location` 对象，获取，设置页面跳转参数。
 
 如：
  - 获取/设置 `search` 参数
@@ -16,7 +16,9 @@ Js-url-helper 是一个浏览器 `URL` 辅助工具。
 ## 下载
 （仅下载至本地后使用，不能直接作为 CDN 资源引用）
 
-[unzipped](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/src/index.js) [(~zipped)](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/dist/js-url-helper.js)
+未压缩[unzipped](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/dist/js-url-helper.js)
+
+压缩[(~zipped)](https://raw.githubusercontent.com/alex86gbk/js-url-helper/master/dist/js-url-helper.min.js)
 
 # install
 安装
@@ -42,9 +44,8 @@ npm install --save js-url-helper
 * [获取 hash 参数](README.md#gethashparam)
 * [设置 search 参数](README.md#setsearchparam)
 * [设置 hash 参数](README.md#sethashparam)
-* [执行 URL 跳转](README.md#jump)
 * [生成 URL 链接](README.md#link)
-* [刷新页面](README.md#refresh)
+* [执行 URL 跳转](README.md#jump)
 
 # UrlHelper
 
@@ -159,34 +160,6 @@ var hashParamString = urlHelper.setHashParam({
 // '#test=hash&chucky=cheese'
 ```
 
-# jump
-
-`jump(param)`
-
-## 执行 URL 跳转，参数为空则刷新当前页。
-
-### Arguments
-
- - param **{Object}**
- - param.path **{String}** 跳转路径
- - param.search **{String}** search参数
- - param.hash **{String}** hash参数
- 
-### Returns
- 
- - **无**
-
-### Example
-```javascript
-urlHelper.jump({
-  path: '/path/other',
-  search: urlHelper.setSearchParam({
-    classId: 1,
-    studentId: 2
-  })
-});
-```
-
 # link
 
 `link(param)`
@@ -216,19 +189,33 @@ var link = urlHelper.link({
   })
 });
 
+或
+
+var link = urlHelper.link({
+  path: '/path/other',
+  search: {
+    chapterId: 1
+  },
+  hash: {
+    questionId: 2
+  }
+});
+
 document.getElementById('nextQuestion').href = link;
 ```
 
-# refresh
+# jump
 
-`refresh(url, param)`
+`jump(param)`
 
-## 刷新页面到 url。此方式刷新的页面浏览器不会记录 history。
+## 执行 URL 跳转，参数为空则刷新当前页。
 
 ### Arguments
 
- - url **{String}** 刷新地址
- - param **{String}** 刷新地址参数
+ - param **{Object}**
+ - param.path **{String}** 跳转路径
+ - param.search **{String}** search参数
+ - param.hash **{String}** hash参数
  
 ### Returns
  
@@ -236,7 +223,7 @@ document.getElementById('nextQuestion').href = link;
 
 ### Example
 ```javascript
-urlHelper.refresh({
+urlHelper.jump({
   path: '/path/other',
   search: urlHelper.setSearchParam({
     chapterId: 1
@@ -244,6 +231,18 @@ urlHelper.refresh({
   hash: urlHelper.setHashParam({
     questionId: 2
   })
+});
+
+或
+
+urlHelper.jump({
+  path: '/path/other',
+  search: {
+    chapterId: 1
+  },
+  hash: {
+    questionId: 2
+  }
 });
 ```
 

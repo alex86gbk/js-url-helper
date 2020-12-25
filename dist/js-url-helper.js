@@ -27,10 +27,12 @@
             if (typeof location === 'string') {
                 if (location.indexOf("?") > location.indexOf("#") && location.indexOf("#") > -1) {
                     alert('URL参数格式异常！');
+                    console.error('URL参数格式异常！');
                 }
             } else {
                 if (location.href.indexOf("?") > location.href.indexOf("#") && location.href.indexOf("#") > -1) {
                     alert('URL参数格式异常！');
+                    console.error('URL参数格式异常！');
                 }
             }
         };
@@ -47,7 +49,7 @@
             for (var i in params) {
                 match = matchReg.exec(params[i]);
                 if (match === null) {
-                    alert('请检查URL参数');
+                    console.info('请检查URL参数');
                 } else {
                     param[match[1]] = decodeURIComponent(match[2]);
                 }

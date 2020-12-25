@@ -6,7 +6,7 @@ export interface UrlHelperParam {
 
 /**
  * Url辅助类
- * @param location {Object} 浏览器 location 对象
+ * @param location {Location} 浏览器 location 对象
  * @author alex86gbk
  * @class
  */
@@ -22,10 +22,12 @@ export default class UrlHelper {
     if (typeof location === 'string') {
       if (location.indexOf("?") > location.indexOf("#") && location.indexOf("#") > -1) {
         alert('URL参数格式异常！');
+        console.error('URL参数格式异常！');
       }
     } else {
       if (location.href.indexOf("?") > location.href.indexOf("#") && location.href.indexOf("#") > -1) {
         alert('URL参数格式异常！');
+        console.error('URL参数格式异常！');
       }
     }
   }
@@ -46,19 +48,19 @@ export default class UrlHelper {
     /**
      * 获取参数
      * @param params {Array}
-     * @return {Object}
+     * @return {any}
      * @private
      */
-  static _getParam(params: string[]): object {
+  static _getParam(params: string[]): any {
     let match: string[] | null;
-    let param: object = {};
+    let param: Object = {};
     const matchReg: RegExp = /([\s\S]*)=([\s\S]*)/;
 
     for (let i in params) {
       match = matchReg.exec(params[i]);
 
       if (match === null) {
-        alert('请检查URL参数');
+        console.info('请检查URL参数');
       } else {
         param[match[1]] = decodeURIComponent(match[2]);
       }
@@ -73,7 +75,7 @@ export default class UrlHelper {
    * @return {String}
    * @private
    */
-  static _setParam(obj: object): string {
+  static _setParam(obj: Object): string {
     let string: string = '';
     let index: number = 0;
 
@@ -99,7 +101,7 @@ export default class UrlHelper {
 
   /**
    * 获取 search 参数
-   * @return {Object} 获取到的 search 参数对象
+   * @return {any} 获取到的 search 参数对象
    *
    * 例子：
    *
@@ -108,7 +110,7 @@ export default class UrlHelper {
    *   var searchParam = urlHelper.getSearchParam();
    *   searchParam;   // {query1: 'test', silly: 'willy'}
    */
-  getSearchParam(location?: Location | string): object {
+  getSearchParam(location?: Location | string): any {
     let params: Array<string>;
 
     if (!location) {
@@ -135,7 +137,7 @@ export default class UrlHelper {
   /**
    * 获取 hash 参数
    * @param location 用于实时获取 location
-   * @return {Object} 获取到的 hash 参数对象
+   * @return {any} 获取到的 hash 参数对象
    *
    * 例子：
    *
@@ -144,7 +146,7 @@ export default class UrlHelper {
    *   var hashParam = urlHelper.getHashParam();
    *   hashParam;   // {test: 'hash', chucky: 'cheese'}
    */
-  getHashParam(location?: Location | string): object {
+  getHashParam(location?: Location | string): any {
     let params: Array<string>;
 
     if (!location) {
@@ -182,7 +184,7 @@ export default class UrlHelper {
    *
    *   // '?query1=test1&silly=willy'
    */
-  setSearchParam(param: object): string {
+  setSearchParam(param: any): string {
     let paramString: string;
 
     if (param && typeof param !== 'object') {
@@ -212,7 +214,7 @@ export default class UrlHelper {
    *
    *   // '#test=hash&chucky=cheese'
    */
-  setHashParam(param: object): string {
+  setHashParam(param: any): string {
     let paramString: string;
 
     if (param && typeof param !== 'object') {
